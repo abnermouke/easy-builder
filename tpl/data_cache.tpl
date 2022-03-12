@@ -1,6 +1,6 @@
 <?php
 /**
- * Power by abnermouke/laravel-builder.
+ * Power by abnermouke/easy-builder.
  * User: {__AUTHOR__} <{__AUTHOR_CONTACT_EMAIL}>
  * Originate in {__ORIGINATE__}
  * Date: {__DATE__}
@@ -9,7 +9,7 @@
 
 namespace App\Handler\Cache\Data{__DICTIONARY__};
 
-use Abnermouke\LaravelBuilder\Module\BaseCacheHandler;
+use Abnermouke\EasyBuilder\Module\BaseCacheHandler;
 use App\Repository{__DICTIONARY__}\{__LOWER_CASE_NAME__}Repository;
 
 /**

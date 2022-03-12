@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 /**
  * Easy Builder Base Middleware Power By Abnermouke
- * Class LaravelBuilderBaseMiddleware
+ * Class EasyBuilderBaseMiddleware
  * @package Abnermouke\EasyBuilder\Middlewares
  */
 class EasyBuilderBaseMiddleware

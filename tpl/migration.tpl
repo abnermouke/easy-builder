@@ -1,6 +1,6 @@
 <?php
 /**
- * Power by abnermouke/laravel-builder.
+ * Power by abnermouke/easy-builder.
  * User: {__AUTHOR__} <{__AUTHOR_CONTACT_EMAIL}>
  * Originate in {__ORIGINATE__}
  * Date: {__DATE__}

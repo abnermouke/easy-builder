@@ -1,11 +1,11 @@
 <?php
 /**
- * Power by abnermouke/laravel-builder.
+ * Power by abnermouke/easy-builder.
  * User: Abnermouke <abnermouke>
  * Originate in YunniTec.
  */
 
-use Abnermouke\LaravelBuilder\Library\CodeLibrary;
+use Abnermouke\EasyBuilder\Library\CodeLibrary;
 
 if (!function_exists('responseService')) {
     /**
@@ -13,7 +13,7 @@ if (!function_exists('responseService')) {
      * @Author Abnermouke <abnermouke@outlook.com>
      * @Originate in Company Yunnitec.
      * @Time 2020-06-03 11:27:37
-     * @param $service \Abnermouke\LaravelBuilder\Module\BaseService 逻辑服务对象
+     * @param $service \Abnermouke\EasyBuilder\Module\BaseService 逻辑服务对象
      * @param string $format 返回类型
      * @param string $callback 回调信息
      * @return \Illuminate\Http\JsonResponse
@@ -56,7 +56,7 @@ if (!function_exists('responseError')) {
         //判断是否存在验证错误
         if (data_get($extra, 'validations', false)) {
             //设置错误
-            $code = \Abnermouke\LaravelBuilder\Library\CodeLibrary::VALIDATE_FAILED;
+            $code = \Abnermouke\EasyBuilder\Library\CodeLibrary::VALIDATE_FAILED;
         }
         //响应返回信息
         return responseReturn((int)$code, $msg, $data, $extra, $format, $callback);
@@ -80,7 +80,7 @@ if (!function_exists('responseSuccess')) {
     function responseSuccess($data = [], $msg = '', $extra = [], $format = 'json', $callback = '')
     {
         //响应返回信息
-        return responseReturn(\Abnermouke\LaravelBuilder\Library\CodeLibrary::CODE_SUCCESS, $msg, $data, $extra, $format, $callback);
+        return responseReturn(\Abnermouke\EasyBuilder\Library\CodeLibrary::CODE_SUCCESS, $msg, $data, $extra, $format, $callback);
     }
 }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Power by abnermouke/laravel-builder.
+ * Power by abnermouke/easy-builder.
  * User: {__AUTHOR__} <{__AUTHOR_CONTACT_EMAIL}>
  * Originate in {__ORIGINATE__}
  * Date: {__DATE__}
@@ -9,7 +9,7 @@
 
 namespace App\Model{__DICTIONARY__};
 
-use Abnermouke\LaravelBuilder\Module\BaseModel;
+use Abnermouke\EasyBuilder\Module\BaseModel;
 
 /**
  * {__TABLE_NAME__}

@@ -1,6 +1,6 @@
 <?php
 /**
- * Power by abnermouke/laravel-builder.
+ * Power by abnermouke/easy-builder.
  * User: Abnermouke <abnermouke>
  * Originate in YunniTec.
  */

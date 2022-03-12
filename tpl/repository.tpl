@@ -1,6 +1,6 @@
 <?php
 /**
- * Power by abnermouke/laravel-builder.
+ * Power by abnermouke/easy-builder.
  * User: {__AUTHOR__} <{__AUTHOR_CONTACT_EMAIL}>
  * Originate in {__ORIGINATE__}
  * Date: {__DATE__}
@@ -10,7 +10,7 @@
 namespace App\Repository{__DICTIONARY__};
 
 use App\Model{__DICTIONARY__}\{__CASE_NAME__};
-use Abnermouke\LaravelBuilder\Module\BaseRepository;
+use Abnermouke\EasyBuilder\Module\BaseRepository;
 
 /**
  * {__DATA_NAME__}信息数据仓库 for table [{__DB_CONNECTION__}:{__DB_PREFIX__}{__NAME__}]
