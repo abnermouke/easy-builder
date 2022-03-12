@@ -6,7 +6,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Abnermouke\\EasyBuilder\\": "src/"
+            "Abnermouke\\EasyBuilder\\": "src"
         }
     },
     "authors": [
@@ -15,7 +15,6 @@
             "email": "abnermouke@outlook.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "ext-json": "*",
         "ext-openssl": "*",
