@@ -1,0 +1,25 @@
+{
+    "name": "abnermouke/easy-builder",
+    "description": "EasyBuilder是一个开源的构建工具包，安装非常简单，因为它是一个标准的Composer包，这意味着只要当前Laravel版本大于7.0都可以使用它。",
+    "type": "library",
+    "homepage": "https://github.com/abnermouke/easy-builder",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Abnermouke\\EasyBuilder\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Abnermouke",
+            "email": "abnermouke@outlook.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "fukuball/jieba-php": "*",
+        "lustre/php-dfa-sensitive": "*"
+    }
+}
