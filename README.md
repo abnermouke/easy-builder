@@ -50,12 +50,6 @@ public function register()
 php artisan vendor:publish --provider="Abnermouke\EasyBuilder\EasyBuilderServiceProvider"
 ```
 
--  执行初始化构建器明亮：
-
-```shell
-php artisan builder:init
-```
-
 - 添加通用中间件至  app/Http/Kernel.php (如需在指定路由使用中间件，请将内容填充至 $routeMiddleware 内，并标记标识):
 
 
@@ -66,6 +60,12 @@ protected $middleware = [
    
     \App\Http\Middleware\Abnermouke\EasyBuilderBaseMiddleware::class,
 ];
+```
+
+-  执行初始化构建器明亮：
+
+```shell
+php artisan builder:init
 ```
 
 - 添加辅助函数自动加载至 composer.json
@@ -83,6 +83,12 @@ protected $middleware = [
             "app/Helpers/projects.php"
         ]
     },
+```
+
+- 执行 Composer Autoload 以生效辅助函数
+
+```shell
+composer dump-autoload
 ```
 
 
