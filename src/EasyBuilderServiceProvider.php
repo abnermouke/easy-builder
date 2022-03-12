@@ -43,7 +43,8 @@ class EasyBuilderServiceProvider extends ServiceProvider
             __DIR__.'/../helpers/functions.php' => app_path('Helpers/functions.php'),
             __DIR__.'/../helpers/helpers.php' => app_path('Helpers/helpers.php'),
             __DIR__.'/../helpers/response.php' => app_path('Helpers/response.php'),
-            __DIR__ . '/../src/Middlewares/EasyBuilderBaseMiddleware.php' => app_path('Http/Middleware/LaravelBuilder/LaravelBuilderBaseMiddleware.php'),
+            __DIR__.'/../helpers/projects.php' => app_path('Helpers/projects.php'),
+            __DIR__ . '/../src/Middlewares/EasyBuilderBaseMiddleware.php' => app_path('Http/Middleware/Abnermouke/EasyBuilderBaseMiddleware.php'),
             __DIR__.'/../views/vendor/errors.blade.php' => resource_path('views/vendor/errors.blade.php'),
         ]);
         // 注册配置

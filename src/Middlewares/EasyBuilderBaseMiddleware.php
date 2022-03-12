@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Abnermouke\EasyBuilder\Middlewares;
+namespace App\Http\Middleware\Abnermouke;
 
 use Closure;
 use Illuminate\Http\Request;
