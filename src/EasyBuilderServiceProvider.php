@@ -2,10 +2,9 @@
 
 namespace Abnermouke\EasyBuilder;
 
+use Abnermouke\EasyBuilder\Commands\InitCommands;
 use Abnermouke\EasyBuilder\Commands\PackageCommands;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
-use Ramsey\Uuid\Uuid;
 
 class EasyBuilderServiceProvider extends ServiceProvider
 {
@@ -20,6 +19,11 @@ class EasyBuilderServiceProvider extends ServiceProvider
         $this->app->singleton('command.builder.package', function ($app) {
             //返回实例
             return new PackageCommands($app['config']['builder']);
+        });
+        //引入配置
+        $this->app->singleton('command.builder.init', function ($app) {
+            //返回实例
+            return new InitCommands();
         });
 
     }
@@ -44,13 +48,6 @@ class EasyBuilderServiceProvider extends ServiceProvider
         ]);
         // 注册配置
         $this->commands('command.builder.package');
-        //替换文件关键词（configs/project.php）
-        $project_php_tpl = str_replace(['__APP_KEY__', '__APP_SECRET__', '__AES_IV__', '__AES_ENCRYPT_KEY__'], ['ak'.date('Ymd').strtolower(Str::random(10)), strtoupper(md5(Uuid::uuid4()->toString().Str::random())), strtoupper(Str::random()), strtoupper(Str::random(8))], file_get_contents(config_path('project.php')));
-        //替换内容
-        file_put_contents(config_path('project.php'), $project_php_tpl);
-        //替换文件关键词（configs/builder.php）
-        $builder_php_tpl = str_replace('__APP_VERSION__', rand(10000, 99999), file_get_contents(config_path('builder.php')));
-        //替换内容
-        file_put_contents(config_path('builder.php'), $builder_php_tpl);
+        $this->commands('command.builder.init');
     }
 }

@@ -27,7 +27,7 @@ class PackageCommands extends Command
      *
      * @var string
      */
-    protected $description = 'Laravel builder power by Abnermouke
+    protected $description = 'Easy builder power by Abnermouke
                               {name: 表名}
                               {--desc: 表注释并以"表"字结尾，例如：用户信息表}
                               {--dictionary: 目录名称，多层级请使用 \ 分割，例如：www (www\home，多目录使用分号包裹)}
