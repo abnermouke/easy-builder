@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Abnermouke\EasyBuilder\Builders\Tools;
+namespace Abnermouke\EasyBuilder\Tools;
 
 use Abnermouke\EasyBuilder\Library\Currency\SensitiveFilterLibrary;
 use Illuminate\Database\Schema\Blueprint;
@@ -47,9 +47,9 @@ class SearchableTool
         //判断数据
         if ($object && $keywords) {
             //查询当前ID存在的关键词
-            if ($issets_keywords = object_2_array(DB::connection('mysql')->table(self::$searchable_table_prefix.self::$searchable_table_name)->whereJsonContains($field, $object)->pluck('guard_name'))) {
+            if ($isset_keywords = object_2_array(DB::connection('mysql')->table(self::$searchable_table_prefix.self::$searchable_table_name)->whereJsonContains($field, $object)->pluck('guard_name'))) {
                 //获取需要移除项
-                if ($diff_keywords = array_merge(array_diff($issets_keywords, $keywords))) {
+                if ($diff_keywords = array_merge(array_diff($isset_keywords, $keywords))) {
                     //循环移除项
                     foreach ($diff_keywords as $k => $keyword) {
                         //查询信息
@@ -62,7 +62,7 @@ class SearchableTool
                 }
             }
             //获取新增项
-            if ($insert_keywords = array_merge(array_diff($keywords, $issets_keywords))) {
+            if ($insert_keywords = array_merge(array_diff($keywords, $isset_keywords))) {
                 //循环新增关键词
                 foreach ($insert_keywords as $k => $keyword) {
                     //整理信息
