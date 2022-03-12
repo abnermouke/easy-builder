@@ -32,11 +32,11 @@ class InitCommands extends Command
 
 
     /**
-     * Easy Builder to package
+     * Easy Builder to init
      * @Author Abnermouke <abnermouke@outlook.com>
-     * @Originate in Company Yunnitec.
-     * @Time 2020-07-16 11:34:24
-     * @throws \Exception
+     * @Originate in Abnermouke's MBP
+     * @Time 2022-03-12 17:03:56
+     * @return bool
      */
     public function handle()
     {
@@ -48,6 +48,10 @@ class InitCommands extends Command
         $builder_php_tpl = str_replace('__APP_VERSION__', rand(10000, 99999), file_get_contents(config_path('builder.php')));
         //替换内容
         file_put_contents(config_path('builder.php'), $builder_php_tpl);
+        //打印信息
+        $this->output->success('构建器初始化完成！');
+        //返回成功
+        return true;
     }
 
 }
