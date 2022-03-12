@@ -20,10 +20,10 @@ class SearchableTool
 {
 
     //检索表表名称
-    private static $searchable_table_prefix = 'alb_';
+    private static $searchable_table_prefix = 'aeb_';
     private static $searchable_table_name = 'searchable_words';
     //检索表表描述
-    private static $searchable_table_description = 'laravel_builder关键词检索表';
+    private static $searchable_table_description = 'easy_builder关键词检索表';
     //检索表字段
     private static $searchable_table_fields = [];
 
@@ -32,9 +32,9 @@ class SearchableTool
      * @Author Abnermouke <abnermouke@outlook.com>
      * @Originate in Abnermouke's MBP
      * @Time 2022-03-11 22:42:35
-     * @param $field
-     * @param $object
-     * @param array $keywords
+     * @param $field string 类型/对象标识
+     * @param $object mixed 类型/对象对应唯一编码（ID）
+     * @param array $keywords 储存关键词
      * @return array|mixed
      * @throws \Exception
      */
@@ -47,46 +47,52 @@ class SearchableTool
         //判断数据
         if ($object && $keywords) {
             //查询当前ID存在的关键词
-            if ($isset_keywords = object_2_array(DB::connection('mysql')->table(self::$searchable_table_prefix.self::$searchable_table_name)->whereJsonContains($field, $object)->pluck('guard_name'))) {
+            if ($isset_keywords = DB::connection('mysql')->table(self::$searchable_table_prefix.self::$searchable_table_name)->whereJsonContains($field, $object)->pluck('guard_name')->toArray()) {
                 //获取需要移除项
                 if ($diff_keywords = array_merge(array_diff($isset_keywords, $keywords))) {
                     //循环移除项
                     foreach ($diff_keywords as $k => $keyword) {
+                        //整理关键词
+                        $keyword = (string)$keyword;
                         //查询信息
                         $keyword_field_content = object_2_array(DB::connection('mysql')->table(self::$searchable_table_prefix.self::$searchable_table_name)->where(['guard_name' => $keyword])->first($field)->$field);
                         //保存信息
-                        DB::connection('mysql')->table(self::$searchable_table_prefix.self::$searchable_table_name)->where(['guard_name' => $keyword])->update([$field => object_2_array(array_merge(array_diff($keyword_field_content, [$object]))), 'updated_at' => auto_datetime()]);
+                        DB::connection('mysql')->table(self::$searchable_table_prefix.self::$searchable_table_name)->where(['guard_name' => $keyword])->update([$field => object_2_array(array_merge(array_diff($keyword_field_content, [$object]))), 'updated_at' => date('Y-m-d H:i:s')]);
                         //释放内存
                         unset($diff_keywords[$k]);
                     }
                 }
             }
             //获取新增项
-            if ($insert_keywords = array_merge(array_diff($keywords, $isset_keywords))) {
+            if ($insert_keywords = (!$isset_keywords ? $keywords : array_merge(array_diff($keywords, $isset_keywords)))) {
                 //循环新增关键词
                 foreach ($insert_keywords as $k => $keyword) {
+                    //整理关键词
+                    $keyword = (string)$keyword;
                     //整理信息
                     $keyword_data = [
                         'guard_name' => $keyword,
                         $field => [$object],
-                        'created_at' => auto_datetime(),
-                        'updated_at' => auto_datetime()
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
                     ];
                     //判断关键词是否存在
                     if ($keyword_info = DB::connection('mysql')->table(self::$searchable_table_prefix.self::$searchable_table_name)->where(['guard_name' => $keyword])->first()) {
-                        //整理信息
-                        $keyword_info->$field = json_decode($keyword_info->$field, true);
                         //设置信息
-                        $keyword_data[$field] = object_2_array($keyword_info->$field);
+                        $keyword_data[$field] = json_decode($keyword_info->$field, true);
                         //添加信息
                         $keyword_data[$field][] = $object;
                         //整理信息
                         $keyword_data[$field] = json_encode(array_unique($keyword_data[$field]));
                         //更新数据
-                        DB::connection('mysql')->table(self::$searchable_table_prefix.self::$searchable_table_name)->where(['guard_name' => $keyword])->update([$field => $keyword_data[$field], 'updated_at' => auto_datetime()]);
+                        DB::connection('mysql')->table(self::$searchable_table_prefix.self::$searchable_table_name)->where(['guard_name' => $keyword])->update([$field => $keyword_data[$field], 'updated_at' => date('Y-m-d H:i:s')]);
                     } else {
                         //整理信息
                         $keyword_data[$field] = json_encode(array_unique($keyword_data[$field]));
+                        //查询字段名
+                        $columns = Schema::getColumnListing(self::$searchable_table_prefix.self::$searchable_table_name);
+                        //设置字段信息
+                        self::$searchable_table_fields = array_merge(array_diff($columns, ['id', 'guard_name', 'created_at', 'updated_at']));
                         //循环字段名
                         foreach (self::$searchable_table_fields as $searchable_table_field) {
                             //判断是否存在
@@ -214,10 +220,6 @@ class SearchableTool
             //设置默认数据
             DB::connection('mysql')->table(self::$searchable_table_prefix.self::$searchable_table_name)->update([$field => json_encode([])]);
         }
-        //查询字段名
-        $columns = Schema::getColumnListing(self::$searchable_table_prefix.self::$searchable_table_name);
-        //设置字段信息
-        self::$searchable_table_fields = array_merge(array_diff($columns, ['id', 'guard_name', 'created_at', 'updated_at']));
         //返回成功
         return $field;
     }
@@ -271,7 +273,6 @@ class SearchableTool
         //返回成功
         return true;
     }
-
 
 
 }

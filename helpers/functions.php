@@ -98,7 +98,7 @@ if (!function_exists('to_time')) {
             $time = strtotime($time);
         }
         //初始化时间信息
-        return (int)$time <= 0 ? ($default ?? time()) : (int)$time;
+        return (int)$time <= 0 ? ($default ? $default : time()) : (int)$time;
     }
 }
 

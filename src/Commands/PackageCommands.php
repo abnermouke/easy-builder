@@ -103,13 +103,13 @@ class PackageCommands extends Command
         //获取生成文件包统一名称
         $this->tplParams['__NAME__'] = $this->tplParams['__MIGRATION_NAME__'] = $name = $this->argument('name');
         //提示输入表名
-        $this->tplParams['__TABLE_NAME__'] = $tableName = $this->option('desc') ?? $this->output->ask('请输入当前表注释名称并以"表"字结尾，例如：用户基本信息表');
+        $this->tplParams['__TABLE_NAME__'] = $tableName = ($this->option('desc') ? $this->option('desc') : $this->output->ask('请输入当前表注释名称并以"表"字结尾，例如：用户基本信息表'));
         //提示获取目录结构
-        $this->tplParams['__DICTIONARY__'] = $dictionary =  $this->option('dictionary') ?? (string)$this->output->ask('多项目部署时如需对各服务文件进行分开部署请输入目录名称，多层级请使用 \ 分割，例如：www (www\home)');
+        $this->tplParams['__DICTIONARY__'] = $dictionary = ($this->option('dictionary') ? $this->option('dictionary') : (string)$this->output->ask('多项目部署时如需对各服务文件进行分开部署请输入目录名称，多层级请使用 \ 分割，例如：www (www\home)'));
         //检测是否存在数据库表前缀
         if (empty($this->tplParams['__DB_PREFIX__'])) {
             //提示设置数据库前缀
-            $this->tplParams['__DB_PREFIX__'] = $this->option('dp') ?? $dbPrefix = (string)$this->output->ask('请设置数据库表前缀，如数据库表存在统一前缀，请输入前缀，例如：'.config('builder.database_prefix', 'system_'), config('builder.database_prefix', ''));
+            $this->tplParams['__DB_PREFIX__'] = ($this->option('dp') ? $this->option('dp') : $dbPrefix = (string)$this->output->ask('请设置数据库表前缀，如数据库表存在统一前缀，请输入前缀，例如：'.config('builder.database_prefix', 'system_'), config('builder.database_prefix', '')));
             //初始化数据库前缀信息
             !empty($dbPrefix) && $this->tplParams['__DB_PREFIX__'] = Str::finish($dbPrefix, '_');
         }
@@ -124,7 +124,7 @@ class PackageCommands extends Command
         //初始化数据名
         $this->tplParams['__DATA_NAME__'] = $dataName = intval($ret) >= 1 ? $matched[1] : $tableName;
         //询问获取数据库链接信息
-        $this->tplParams['__DB_CONNECTION__'] = $this->option('dc') ?? $this->choice('请选择当前数据查询时使用的表链接信息！', array_keys(config('database.connections')), config('database.default'));
+        $this->tplParams['__DB_CONNECTION__'] = ($this->option('dc') ? $this->option('dc') : $this->choice('请选择当前数据查询时使用的表链接信息！', array_keys(config('database.connections')), config('database.default')));
         //生成model
         $this->makeModel();
         //生成数据仓库
@@ -238,8 +238,8 @@ class PackageCommands extends Command
         //初始化文件名
         $migrationName = trim($matched[1]);
         //询问获取数据库配置信息
-        $this->tplParams['__CHARSET__'] = $this->option('dcs') ?? $this->choice('请选择当前数据库表使用的字符集！', ['utf8', 'utf8mb4'], $this->tplParams['__CHARSET__']);
-        $this->tplParams['__ENGINE__'] = $this->option('de') ?? $this->choice('请输入当前数据库表使用的储存引擎！', ['myisam', 'innodb'], $this->tplParams['__ENGINE__']);
+        $this->tplParams['__CHARSET__'] = ($this->option('dcs') ? $this->option('dcs') : $this->choice('请选择当前数据库表使用的字符集！', ['utf8', 'utf8mb4'], $this->tplParams['__CHARSET__']));
+        $this->tplParams['__ENGINE__'] = ($this->option('de') ? $this->option('de') : $this->choice('请输入当前数据库表使用的储存引擎！', ['myisam', 'innodb'], $this->tplParams['__ENGINE__']));
         //获取模版内容
         $content = $this->getTplContent('migration');
         //内容存在
@@ -380,7 +380,7 @@ class PackageCommands extends Command
     private function makeDataCache()
     {
         //询问获取缓存链接信息
-        $this->tplParams['__DATA_CACHE_DRIVER__'] = $this->option('cd') ?? $this->choice('请选择当前数据缓存储存驱动！', array_keys(config('cache.stores')), config('cache.default'));
+        $this->tplParams['__DATA_CACHE_DRIVER__'] = ($this->option('cd') ? $this->option('cd') : $this->choice('请选择当前数据缓存储存驱动！', array_keys(config('cache.stores')), config('cache.default')));
         //整理目录
         $dataCacheDirectory = app_path('Handler/Cache/Data'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']));
         //判断目录是否存在

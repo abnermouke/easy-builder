@@ -144,7 +144,7 @@ if (!function_exists('object_2_array'))
      */
     function object_2_array($object)
     {
-        return $object && $object !== '[]' ? (is_array($object) ?? json_decode($object, true)) : [];
+        return $object && $object !== '[]' ? (is_array($object) ? $object : json_decode($object, true)) : [];
     }
 }
 

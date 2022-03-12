@@ -27,9 +27,9 @@ class SignatureLibrary
     public function __construct($app_key = '', $app_secret = '')
     {
         //初始化APP KEY
-        $this->app_key = $app_key ?? config('project.signature.app_key', auto_datetime('Ymd'));
+        $this->app_key = $app_key ? $app_key : config('project.signature.app_key', auto_datetime('Ymd'));
         //初始化APP Secret
-        $this->app_secret = $app_secret ?? config('project.signature.app_secret', auto_datetime('YmdHis'));
+        $this->app_secret = $app_secret ? $app_secret : config('project.signature.app_secret', auto_datetime('YmdHis'));
     }
 
     /**
