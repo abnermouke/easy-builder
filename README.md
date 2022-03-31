@@ -6,7 +6,7 @@
 
 ----
 
-最后更新时间：2022年03月11日，持续更新中！！！
+最后更新时间：2022年03月31日，持续更新中！！！
 
 ---
 
@@ -131,7 +131,7 @@ composer require lustre/php-dfa-sensitive
 composer require ext-openssl
 ```
 
-2020.03.12 - 新增诸多功能
+2022.03.12 - 新增诸多功能
 
 - 新增 AesLibrary Aes加解密公共类，解析表单加密结果
 - 新增 SignatureLibrary 验签公共类，提供create（创建）、verify（验证）方法快捷生成/验证签名
@@ -140,6 +140,12 @@ composer require ext-openssl
 - 新增 Repository 公共方法 uniqueCode 可生成唯一类型编码（md5、string、number等）
 - 新增 SearchableTool 公共类，用于关键词检索，文本录入后将关键词与文本对象关联，可实现多对多高效检索（自动过滤违禁词），自带学习功能，根据项目需求自动调整和记录检索对象
 
+2022.03.31 - 新增诸多功能
+
+- 新增AmapLibrary 高德地图处理公共类，获取高德相关接口
+- 新增DeviceLibrary 设备检测公共类，快捷检测当前设备类型
+- 新增QrLibrary 基于 "simplesoftwareio/simple-qrcode" 快速生成指定二维码文件至指定storage目录
+- 新增StorageFileLibrary Storage文件处理公共类，快捷处理Storage文件等操作
 
 ## License
 
