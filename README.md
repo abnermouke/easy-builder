@@ -62,7 +62,7 @@ protected $middleware = [
 ];
 ```
 
--  执行初始化构建器明亮：
+-  执行初始化构建器命令：
 
 ```shell
 php artisan builder:init
