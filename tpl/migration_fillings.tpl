@@ -24,8 +24,10 @@ class CreateFillingsTable extends Migration
     public function up()
     {
 
-        // TODO : 执行指定模块迁移
-        //$this->migrate('dictionary_name', 'module_name');
+        //执行默认 Abnermouke 相关构建模块迁移
+        $this->migrate('abnermouke', 'Abnermouke');
+
+        // TODO : 执行其他指定模块迁移
 
     }
 

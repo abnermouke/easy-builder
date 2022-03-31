@@ -28,6 +28,7 @@ class Create{__MIGRATION_CASE_NAME_}Table extends Migration
     */
     public function up()
     {
+        //配置表迁移配置信息
         Schema::connection({__CASE_NAME__}::DB_CONNECTION)->create('{__DB_PREFIX__}{__NAME__}', function (Blueprint $table) {
             //设置字符集
             $table->charset = '{__CHARSET__}';

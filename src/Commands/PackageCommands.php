@@ -141,7 +141,7 @@ class PackageCommands extends Command
             //设置基础缓存名
             $this->tplParams['__DATA_CACHE_NAME__'] = $this->option('cache') ? (($dictionary ? strtolower(str_replace('\\', ':', $dictionary)).':' : '').$name.'_data_cache') : $this->ask('您可以自定义当前数据缓存名，默认为：[ '. (($dictionary ? strtolower(str_replace('\\', ':', $dictionary)).':' : '').$name.'_data_cache').' ]，如需更改，请输入您要使用的缓存名！', (($dictionary && !empty($dictionary) ? strtolower(str_replace('\\', ':', $dictionary)).':' : '').$name.'_data_cache'));
             //设置缓存过期时间，随机1小时-一天
-            $this->tplParams['__DATA_CACHE_EXPIRE_SECOND__'] = $this->option('cache') ? 0 : $this->ask('您可以自定义数据缓存过期时间（单位：s）,系统将默认设定为 1 小时至一天的随机时间过期，您也可以自定义，0 为永远不过期，请输入当前数据缓存的过期时间！', rand(3600, 86400));
+            $this->tplParams['__DATA_CACHE_EXPIRE_SECOND__'] = $this->option('cache') ? rand(3600, 86400) : $this->ask('您可以自定义数据缓存过期时间（单位：s）,系统将默认设定为 1 小时至一天的随机时间过期，您也可以自定义，0 为永远不过期，请输入当前数据缓存的过期时间！', rand(3600, 86400));
             //生成数据缓存文件
             $this->makeDataCache();
         }

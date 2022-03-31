@@ -786,34 +786,25 @@ class BaseRepository
     }
 
     /**
-     * 批量导入数据
+     * 批量导入数据（任意失败不成立）
      * @Author Abnermouke <abnermouke@outlook.com>
      * @Originate in Company Yunnitec.
      * @Time 2020-07-15 17:28:53
      * @param $data array 处理数据
      * @param int $chunk 分割数据条数
-     * @param bool $autoIgnore 自动忽略错误
      * @return mixed
      * @throws \Exception
      */
-    public function insertAll($data, $chunk = 50, $autoIgnore = false)
+    public function insertAll($data)
     {
-        //分割数据组合
-        $groupData = array_chunk($data, (int)($chunk), true);
         //开始事务处理
         DB::beginTransaction();
         //尝试开始操作
         try {
             //循环数据组
-            foreach ($groupData as $num => $group) {
-                //判断是否忽略重复插入记录到数据库的错误
-                if ($autoIgnore) {
-                    //返回插入结果
-                    $this->model->insertOrIgnore($group);
-                } else {
-                    //正常插入数据
-                    $this->model->insert($group);
-                }
+            foreach ($data as $num => $group) {
+                //正常插入数据
+                $this->insertGetId($group);
             }
             //提交事务
             DB::commit();

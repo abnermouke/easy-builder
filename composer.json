@@ -19,6 +19,7 @@
         "ext-json": "*",
         "ext-openssl": "*",
         "fukuball/jieba-php": "*",
-        "lustre/php-dfa-sensitive": "*"
+        "lustre/php-dfa-sensitive": "*",
+        "simplesoftwareio/simple-qrcode": "*"
     }
 }

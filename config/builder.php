@@ -1,7 +1,7 @@
 <?php
 /**
  * Power by abnermouke/easy-builder.
- * User: Abnermouke <abnermouke>
+ * User: Abnermouke <abnermouke@outlook.com>
  * Originate in YunniTec.
  */
 

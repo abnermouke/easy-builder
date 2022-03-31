@@ -1,7 +1,7 @@
 <?php
 /**
  * Power by abnermouke/easy-builder.
- * User: Abnermouke <abnermouke>
+ * User: Abnermouke <abnermouke@outlook.com>
  * Originate in YunniTec.
  */
 
@@ -113,11 +113,11 @@ if (!function_exists('responseReturn')) {
         //添加基础数据
         $result['locale'] = config('app.locale');
         //获取逻辑请求记录时间
-        $logic_request_log_time = (int)request()->logic_request_log_time;
+        $logic_request_log_time = (int)request()->__LOGIC_REQUEST_LOG_TIME__;
         //判断信息
         if ((int)$logic_request_log_time > 0) {
             //设置基础数据
-            $result['consuming'] = (((int)(microtime(true)*1000) - (int)$logic_request_log_time)).' ms';
+            $result['consuming'] = (((int)(microtime(true)*1000) - (int)$logic_request_log_time * 1000)).'ms';
         }
         //根据返回类型处理信息
         switch ($format) {

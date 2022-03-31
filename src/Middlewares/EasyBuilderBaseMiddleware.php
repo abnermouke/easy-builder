@@ -23,7 +23,7 @@ class EasyBuilderBaseMiddleware
     public function handle($request, Closure $next)
     {
         //记录请求时间
-        $request->offsetSet('logic_request_log_time', time());
+        $request->offsetSet('__LOGIC_REQUEST_LOG_TIME__', time());
 
         //TODO ：其他中间件操作
 
