@@ -6,7 +6,7 @@
 
 ----
 
-最后更新时间：2022年03月31日，持续更新中！！！
+最后更新时间：2022年04月05日，持续更新中！！！
 
 ---
 
@@ -15,7 +15,7 @@
 
 1. PHP >= 7.2（建议安装7.4）
 2. **[Composer](https://getcomposer.org/)**
-3. Laravel Framework 7+
+3. Laravel Framework 6+
 
 
 
@@ -146,6 +146,13 @@ composer require ext-openssl
 - 新增DeviceLibrary 设备检测公共类，快捷检测当前设备类型
 - 新增QrLibrary 基于 "simplesoftwareio/simple-qrcode" 快速生成指定二维码文件至指定storage目录
 - 新增StorageFileLibrary Storage文件处理公共类，快捷处理Storage文件等操作
+
+2022-04.05 - 主要增加与abnermouke/console-builder的适配
+
+- 新增对Laravel6的支持，LTS版本已完美适配，Laravel9及其之后的版本待官方稳定后兼容适配
+- 新增 七牛SDK为默认加载包，并在 StorageFileLibrary 中新增对七牛云的快捷操作（上传、删除）
+- 新增默认 TestCommand，可在 app/Console/Commands/TestCommand 添加开发测试，命令：`php artisan test:test`
+
 
 ## License
 
