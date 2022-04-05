@@ -1,4 +1,4 @@
-# easy-builder - 一款高效的PHP构建工具
+# easy-builder - 一款高效的Laravel综合服务/架构构建包
 
  Power By Abnermouke <abnermouke@outlook.com>
 
