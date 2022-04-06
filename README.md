@@ -30,7 +30,7 @@ $ composer require "abnermouke/easy-builder"
 - 在`config/app.php`的`providers`注册服务提供者
 
 ```php
-Abnermouke\EasyBuilder\EasyBuilderServiceProvider::class
+Abnermouke\EasyBuilder\EasyBuilderServiceProvider::class,
 ```
 - 如果你想只在非`production`的模式中使用构建器功能，可在`AppServiceProvider`中进行`register()`配置
 
