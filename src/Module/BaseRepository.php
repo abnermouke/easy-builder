@@ -472,7 +472,7 @@ class BaseRepository
     private function setGroup($query, $group = '')
     {
         //判断group规则
-        if (!$group && !empty($group)) {
+        if ($group && !empty($group)) {
             //设置group
             $query = $query->groupByRaw($group);
         }
@@ -636,7 +636,7 @@ class BaseRepository
         //查询总数量
         $total_count = $this->count();
         //查询匹配总数量
-        $matched_count = $this->count($conditions, $joins);
+        $matched_count = $this->count($conditions, $joins, $group);
         //数据列表
         $lists = $this->limit($conditions, $fields, $joins, $orders && !empty($orders) ? $orders : ['id' => 'desc'], $group, (int)$page, (int)$page_size);
         //生成总页码
@@ -934,15 +934,18 @@ class BaseRepository
      * @Time 2020-04-29 15:00:52
      * @param array $conditions 查询条件
      * @param mixed $joins join查询条件
+     * @param mixed $group group查询条件
      * @return mixed
      * @throws \Exception
      */
-    public function count($conditions = [], $joins = false)
+    public function count($conditions = [], $joins = false, $group = '')
     {
         //初始化请求
         $query = $this->setConditions($this->model(), $conditions);
         //设置join条件
         $query = $this->setJoins($query, $joins);
+        //设置group条件
+        $query = $this->setGroup($query, $group);
         //继续查询
         return $this->setResult($query->count());
     }

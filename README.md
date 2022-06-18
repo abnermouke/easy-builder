@@ -6,7 +6,7 @@
 
 ----
 
-最后更新时间：2022年04月05日，持续更新中！！！
+最后更新时间：2022年06月18日，持续更新中！！！
 
 ---
 
@@ -91,6 +91,19 @@ php artisan builder:init
 composer dump-autoload
 ```
 
+- 更改数据库严格模式（兼容GroupBy查询 Mysql5.7）configs/database.php
+
+```php
+
+     "mysql" => [
+        
+        //关闭严格模式
+        "strict" => false
+        
+     ],
+
+```
+
 
 ### How to use it - 怎么使用
 
@@ -147,11 +160,16 @@ composer require ext-openssl
 - 新增QrLibrary 基于 "simplesoftwareio/simple-qrcode" 快速生成指定二维码文件至指定storage目录
 - 新增StorageFileLibrary Storage文件处理公共类，快捷处理Storage文件等操作
 
-2022-04.05 - 主要增加与abnermouke/console-builder的适配
+2022.04.05 - 主要增加与abnermouke/console-builder的适配
 
 - 新增对Laravel6的支持，LTS版本已完美适配，Laravel9及其之后的版本待官方稳定后兼容适配
 - 新增 七牛SDK为默认加载包，并在 StorageFileLibrary 中新增对七牛云的快捷操作（上传、删除）
 - 新增默认 TestCommand，可在 app/Console/Commands/TestCommand 添加开发测试，命令：`php artisan test:test`
+
+2022.06.18 - 修复已知问题
+
+- 修复所有涉及GroupBy查询无效的问题
+- 新增count查询携带groupBy查询条件
 
 
 ## License
