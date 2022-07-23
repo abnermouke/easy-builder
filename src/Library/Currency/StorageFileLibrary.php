@@ -154,7 +154,7 @@ class StorageFileLibrary
      * @param false $clear_location_file 上传成功后是否清除本地文件
      * @return bool
      */
-    private static function deleteQiniu($storage_name, $storage_disk = 'public', $qiniu_config = false, $clear_location_file = false)
+    public static function deleteQiniu($storage_name, $storage_disk = 'public', $qiniu_config = false, $clear_location_file = false)
     {
         //获取文件地址
         $file_path = Storage::disk($storage_disk)->path($storage_name);

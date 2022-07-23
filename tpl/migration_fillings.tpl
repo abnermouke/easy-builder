@@ -38,14 +38,14 @@ class CreateFillingsTable extends Migration
      * @Time {__DATE__} {__TIME__}
      * @param $lower_alias string 小写标示（创建migration文件）
      * @param $module_alias string 模块标示（创建模块目录名称）
-     * @throws \Exception
+     * @return bool
      */
     public function migrate($lower_alias, $module_alias)
     {
-        //查询迁移文件
-        $migrations = File::files(database_path('migrations/' . $lower_alias));
+        //获取目录信息
+        $migration_dictionary = database_path('migrations/' . $lower_alias);
         //判断文件信息
-        if (!empty($migrations)) {
+        if (File::isDirectory($migration_dictionary) && !empty(($migrations = File::files($migration_dictionary)))) {
             //循环迁移文案信息
             foreach ($migrations as $k => $migration) {
                 //获取表名称
@@ -81,6 +81,8 @@ class CreateFillingsTable extends Migration
                 unset($migrations[$k]);
             }
         }
+        //返回成功
+        return true;
     }
 
     /**

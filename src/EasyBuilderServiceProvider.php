@@ -3,6 +3,7 @@
 namespace Abnermouke\EasyBuilder;
 
 use Abnermouke\EasyBuilder\Commands\InitCommands;
+use Abnermouke\EasyBuilder\Commands\InterfaceCommands;
 use Abnermouke\EasyBuilder\Commands\PackageCommands;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,6 +25,11 @@ class EasyBuilderServiceProvider extends ServiceProvider
         $this->app->singleton('command.builder.init', function ($app) {
             //返回实例
             return new InitCommands();
+        });
+        //引入配置
+        $this->app->singleton('command.builder.interface', function ($app) {
+            //返回实例
+            return new InterfaceCommands($app['config']['builder']);
         });
 
     }
@@ -51,5 +57,6 @@ class EasyBuilderServiceProvider extends ServiceProvider
         // 注册配置
         $this->commands('command.builder.package');
         $this->commands('command.builder.init');
+        $this->commands('command.builder.interface');
     }
 }

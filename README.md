@@ -122,7 +122,84 @@ $ php artisan builder:package accounts
 生成`accounts`相关的系列文件信息。
 
 
-##### 其他功能
+### Extends Tool - 更多高效工具
+
+Abnermouke 致力于规范开发标准、减少编码量，每一串代码都能成为可观的艺术品，在 easybuilder 中Abnermouke已将自身经验所得开发应用目录结构录入，并希望对使用此扩展包的开发人员也能起到一定的建议/引导作用。
+
+---
+
+##### [ Command ]  builder:interface
+
+```shell
+$ php artisan builder:interface {your-table-name-without-db-prefix}
+```
+
+builder:interface 为 package 的延伸工具，主要使用于多端适配目录结构，例如：当前项目共有小程序、APP、H5、管理后台等前端入口，数据库都为公用，以往我们或许会在Http/Controllers中进行目录区分，但仍需手动创建区分目录，更有甚者多端controller都是公用的情况
+
+由于package构建后将在Http/Controllers中创建默认controller文件，目录结构已存在，为避免误解以及后期维护难度增大，现建议将各端入口更换至app/Interfaces中操作，可自定义目录结构，同时根据数据库表信息可以生成多个多端的controller以及service
+
+其使用方法与package执行一致，但流程更加简化，只需录入数据库表名、表注释以及你要存储的目录即可，执行成功后将在指定目录生成：
+
+```
+
+app/Interfaces/指定目录/Controllers/YourTableController
+
+app/Interfaces/指定目录/Services/YourTableInterfaceService
+
+```
+
+Controller将用于接受该端路由请求，Interface为该端业务逻辑处理器，作用等同于Service
+
+多端开发中建议将app\Services中逻辑服务容器作为公共逻辑处理器，各端由自身Interface中service处理
+
+命令如下：
+
+```shell
+$ php artisan builder:interface accounts
+```
+
+
+---
+
+##### [ Tool ]  SearchableTool  关键词检索类
+
+SearchableTool 是 easybuilder 对外提供的高效工具，仅对外开放set/search两方法，set为设置关键词，search为搜索，在调用过程中，easybuilder 将在项目中自动生成 acb_search_keywords 表用于储存关键词信息，数据库信息支持无限扩展，可同时对多个对象进行检索结构预存。
+
+操作如下：
+
+```
+
+// 设置关键词（goods代表储存对象为商品，GOODS_ID为对应商品ID）
+SearchableTool::set('goods', GOODS_ID, ['keyword_1', 'keyword_2']);
+
+// set方法传参可理解为：设置商品的GOODS_IDS这个商品需绑定keyword_1、keyword_2两个关键词，在执行search时，只要是搜索商品，存在keyword_1、keyword_2任意一项时将输出GOODS_ID
+
+
+//搜索关键词（goods代表储存对象为商品，搜索词检索后将返回满足任意关键词的所有商品ID）
+SearchableTool::search('goods', ['keyword_1', 'keyword_3']);
+
+```
+
+无限扩展，可对文章、店铺等等一系列需要全文检索进行储存，关键词文本建议使用 easybuilder 中 JiebaLibrary 处理为多个关键词，以增加检索成功率
+
+---
+
+
+##### [ Tool ]  SentenceTool  语录/句子构建处理工具
+
+SentenceTool 是 easybuilder 提供的一个小工具，仅需执行run方法即可获取金山词霸每日一句数据，包含中文英文鸡汤，创意小工具，根据自身需要选择使用即可
+
+调用时，同样 easybuilder 将在项目中自动生成 acb_sentences 表用于储存此条信息，开发者可使用 app/Repository/Abnermouke/Builders/SentenceRepository.php 查询
+
+
+---
+
+##### [Tool]  InterfaceCryptographyTool  接口加密处理工具
+
+InterfaceCryptographyTool 是一套完整的php端加解密解决方案，除验签加密外同时嵌套非对称加密，所有验证/加密过程均为自动完成，仅需配置指定APP与RSA2密钥即可
+
+
+### 更新记录
 
 2020.10.16 - 新增结巴分词相关处理逻辑（Abnermouke\EasyBuilder\Library\Currency\JiebaLibrary），请在使用前执行命令：
 
@@ -151,7 +228,7 @@ composer require ext-openssl
 - 新增更多实用辅助函数
 - 新增abort_error辅助函数，快速响应错误页面
 - 新增 Repository 公共方法 uniqueCode 可生成唯一类型编码（md5、string、number等）
-- 新增 SearchableTool 公共类，用于关键词检索，文本录入后将关键词与文本对象关联，可实现多对多高效检索（自动过滤违禁词），自带学习功能，根据项目需求自动调整和记录检索对象
+- 新增 SearchableTool 工具类，用于关键词检索，文本录入后将关键词与文本对象关联，可实现多对多高效检索（自动过滤违禁词），自带学习功能，根据项目需求自动调整和记录检索对象
 
 2022.03.31 - 新增诸多功能
 
@@ -171,6 +248,13 @@ composer require ext-openssl
 - 修复所有涉及GroupBy查询无效的问题
 - 新增count查询携带groupBy查询条件
 
+2022.07.23 - 修复已知问题并带来更多更新
+
+- 修复Storage文件处理时可能存在的文件名问题，杜绝空格等因素存在
+- 新增builder命令：builder:interface，适用于多设备应用开发，可将统一表针对不同端自动生成service以及controller
+- 新增 SentenceTool 工具类，用于爬取每日词条使用，鸡汤文本
+- 新增与 abnermoke/pros 构建框架的适配
+- 新增 InterfaceCryptographyTool 工具类，用于接口端加密/解密使用，内含基本验签加密、RSA加密
 
 ## License
 
