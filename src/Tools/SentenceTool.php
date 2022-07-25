@@ -72,7 +72,9 @@ class SentenceTool
             //尝试发起请求
             try {
                 //发起请求
-                $response = (new Client())->get(str_replace('{DATE}', $date, self::$seed_link));
+                $response = (new Client())->get(str_replace('{DATE}', $date, self::$seed_link), [
+                    'verify' => false,
+                ]);
             } catch (\Exception $exception) {
                 //返回失败
                 return false;

@@ -83,7 +83,6 @@ class PackageCommands extends Command
             '__AUTHOR__' => data_get($config, 'author', 'Abnermouke'),
             '__AUTHOR_CONTACT_EMAIL' => data_get($config, 'author_email', 'abnermouke@outlook.com'),
             '__ORIGINATE__' => data_get($config, 'original', 'Yunni Network Technology Co., Ltd. '),
-//            '__DB_PREFIX__' => data_get($config, 'database_prefix', ''),
             '__DB_CONNECTION__' => data_get($config, 'database_connection', 'mysql'),
             '__DATA_CACHE_DRIVER__' => data_get($config, 'cache_driver', 'file'),
         ];
@@ -106,13 +105,10 @@ class PackageCommands extends Command
         $this->tplParams['__TABLE_NAME__'] = $tableName = ($this->option('desc') ? $this->option('desc') : $this->output->ask('请输入当前表注释名称并以"表"字结尾，例如：用户基本信息表'));
         //提示获取目录结构
         $this->tplParams['__DICTIONARY__'] = $dictionary = ($this->option('dictionary') ? $this->option('dictionary') : (string)$this->output->ask('多项目部署时如需对各服务文件进行分开部署请输入目录名称，多层级请使用 \ 分割，例如：www (www\home)'));
-        //检测是否存在数据库表前缀
-        if (empty($this->tplParams['__DB_PREFIX__'])) {
-            //提示设置数据库前缀
-            $this->tplParams['__DB_PREFIX__'] = ($this->option('dp') ? $this->option('dp') : $dbPrefix = (string)$this->output->ask('请设置数据库表前缀，如数据库表存在统一前缀，请输入前缀，例如：'.config('builder.database_prefix', 'system_'), config('builder.database_prefix', '')));
-            //初始化数据库前缀信息
-            !empty($dbPrefix) && $this->tplParams['__DB_PREFIX__'] = Str::finish($dbPrefix, '_');
-        }
+        //提示设置数据库前缀
+        $this->tplParams['__DB_PREFIX__'] = $dbPrefix = ($this->option('dp') ? $this->option('dp') : (string)$this->output->ask('请设置数据库表前缀，如数据库表存在统一前缀，请输入前缀，例如：'.config('builder.database_prefix', 'system_'), config('builder.database_prefix', '')));
+        //初始化数据库前缀信息
+        $this->tplParams['__DB_PREFIX__'] = Str::finish($dbPrefix, '_');
         //整理驼峰名称
         $this->tplParams['__CASE_NAME__'] = $this->tplParams['__MIGRATION_CASE_NAME_'] = $caseName = Str::studly($name);
         //整理驼峰名称（小写）

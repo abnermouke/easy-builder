@@ -6,7 +6,7 @@
 
 ----
 
-最后更新时间：2022年07月23日，持续更新中！！！
+最后更新时间：2022年07月25日，持续更新中！！！
 
 ---
 
@@ -255,6 +255,11 @@ composer require ext-openssl
 - 新增 SentenceTool 工具类，用于爬取每日词条使用，鸡汤文本
 - 新增与 abnermoke/pros 构建框架的适配
 - 新增 InterfaceCryptographyTool 工具类，用于接口端加密/解密使用，内含基本验签加密、RSA加密
+
+2022.07.25 - 修复问题
+
+- 修复批量执行 builder:package 时中途更换db_prefix失效的问题，单一执行不影响
+- 修复 SentenceTool 本地localhost请求失败问题
 
 ## License
 
