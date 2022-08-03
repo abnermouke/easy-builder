@@ -180,6 +180,25 @@ class ValidateLibrary
     }
 
     /**
+     * 判断是否包含html
+     * @Author Abnermouke <abnermouke@outlook.com>
+     * @Originate in Abnermouke's MBP
+     * @Time 2022-07-25 23:45:09
+     * @param $string
+     * @return bool
+     */
+    public static function hasHtml($string)
+    {
+        //判断是否包含html
+        if ($string !== strip_tags($string)) {
+            //返回验证结果
+            return true;
+        }
+        //返回验证结果
+        return false;
+    }
+
+    /**
      * 自定义验证（正则匹配）信息
      * @Author Abnermouke <abnermouke@outlook.com>
      * @Originate in Company Yunnitec.

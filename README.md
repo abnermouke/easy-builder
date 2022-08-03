@@ -6,7 +6,7 @@
 
 ----
 
-最后更新时间：2022年07月25日，持续更新中！！！
+最后更新时间：2022年08月05日，持续更新中！！！
 
 ---
 
@@ -260,6 +260,13 @@ composer require ext-openssl
 
 - 修复批量执行 builder:package 时中途更换db_prefix失效的问题，单一执行不影响
 - 修复 SentenceTool 本地localhost请求失败问题
+
+2022.08.05 - 优化并提供更多支持
+
+- 优化 builder:interface 配合 abnermouke/pros 可快速生成控制台接口逻辑、路由以及blade模版，增效降码
+- 新增 ValidateLibrary 检测是否包含HTML方法
+- 新增 BaseRepository 自动生成全大写唯一编码
+- 进一步适配 abnermouke/pros 包
 
 ## License
 

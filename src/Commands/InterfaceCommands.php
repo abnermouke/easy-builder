@@ -3,8 +3,6 @@
 namespace Abnermouke\EasyBuilder\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -15,12 +13,13 @@ use Illuminate\Support\Str;
  */
 class InterfaceCommands extends Command
 {
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'builder:interface {name} {--desc=} {--dictionary=}';
+    protected $signature = 'builder:interface {name} {--desc=} {--dictionary=} {--source_dictionary=} {--ccf}';
 
     /**
      * The console command description.
@@ -31,6 +30,8 @@ class InterfaceCommands extends Command
                               {name: 对应表名，不含表前缀，如：admins}
                               {--desc: 表注释并以"表"字结尾，例如：管理员表}
                               {--dictionary: 目录名称，多层级请使用 \ 分割，例如：api (api\v1，多目录使用斜杠分割)}
+                              {--source_dictionary: package资源生成时使用的目录名称，多层级请使用 \ 分割，例如：www (www\home，多目录使用分号包裹)}
+                              {--ccf: 是否强制生成控制台系列方法等}
                             ';
 
     /**
@@ -139,15 +140,50 @@ class InterfaceCommands extends Command
             //直接返回
             return true;
         }
+        //整理替换文件前缀
+        $tpl_prefix = '';
+        //判断是否需要生成控制台基础模块
+        if (strstr(strtolower($this->tplParams['__DICTIONARY__']), 'console') && !$this->option('ccf') && $this->confirm('是否自动录入控制台（abnermouke\pros）常用方法（index、lists、detail、store、delete、enable）？', true)) {
+            //设置文件后缀
+            $tpl_prefix = 'console_';
+            //获取配置资源文件地址
+            $this->tplParams['__RESOURCE_DICTIONARY__'] = $dictionary = ($this->option('source_dictionary') ? $this->option('source_dictionary') : (string)$this->output->ask('package资源生成时使用的目录名称，多项目部署时如需对各服务文件进行分开部署请输入目录名称，多层级请使用 \ 分割，例如：www (www\home)'));
+            //整理驼峰目录名称
+            $this->tplParams['__RESOURCE_DICTIONARY__'] = data_get($this->tplParams, '__RESOURCE_DICTIONARY__', false) ? Str::start($this->caseDictionary($this->tplParams['__RESOURCE_DICTIONARY__']), '\\') : '';
+            //设置路由节点名称
+            $this->tplParams['__CONSOLE_ROUTE_NODES__'] = implode('.', explode('_', strtolower($this->tplParams['__NAME__'])));
+            //设置访问路径
+            $this->tplParams['__CONSOLE_PATH__'] = implode('/', explode('_', strtolower($this->tplParams['__NAME__'])));
+            //整理controller目录
+            $interfaceBladeDictionary = resource_path('views/pros/console/'.$this->tplParams['__CONSOLE_PATH__']);;
+            //判断目录是否存在
+            if (!File::isDirectory($interfaceBladeDictionary)) {
+                //创建目录
+                File::makeDirectory($interfaceBladeDictionary, 0777, true, true);
+            }
+            //整理blade模版路径
+            $interfaceBladePath = resource_path('views/pros/console/'.$this->tplParams['__CONSOLE_PATH__'].'/index.blade.php');
+            //判断文件地址
+            if (file_exists($interfaceBladePath) && !$this->confirm('Blade模版 ['.$interfaceBladePath.'] 已存在，是否覆盖写入？')) {
+                //直接返回
+                return true;
+            }
+            $content = $this->getTplContent($tpl_prefix.'blade');
+            //内容存在
+            if ($content && !empty($content)) {
+                //设置内容
+                $this->putContent($interfaceBladePath, $content);
+            }
+        }
         //获取模版内容（servicce）
-        $content = $this->getTplContent('service');
+        $content = $this->getTplContent($tpl_prefix.'service');
         //内容存在
         if ($content && !empty($content)) {
             //设置内容
             $this->putContent($interfaceServicePath, $content);
         }
         //获取模版内容（controller）
-        $content = $this->getTplContent('controller');
+        $content = $this->getTplContent($tpl_prefix.'controller');
         //内容存在
         if ($content && !empty($content)) {
             //设置内容

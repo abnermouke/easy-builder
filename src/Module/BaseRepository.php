@@ -600,13 +600,16 @@ class BaseRepository
      * @Time 2020-07-15 17:33:05
      * @param string $secret 加密串
      * @param string $field 对比字段
+     * @param bool $upper 是否转为大写
      * @return string
      * @throws \Exception
      */
-    public function uniqueMd5($secret = '', $field = 'code')
+    public function uniqueMd5($secret = '', $field = 'code', $upper = false)
     {
         //生成唯一编码信息
         $code = md5($secret.Uuid::uuid4()->toString().$secret.Str::random());
+        //判断是否转为大写
+        $upper && $code = strtoupper($code);
         //查询信息是否存在
         if ($this->find([$field => $code], $field)) {
             //继续生成
@@ -1100,10 +1103,11 @@ class BaseRepository
      * @param $field string 字段
      * @param string $type 生成类型（md5、su <string upper>、sl <string lower>、number）
      * @param int $length 生成长度 （md5固定为32位，其他有效）
+     * @param bool $upper 是否改为大写
      * @return false|string
      * @throws \Exception
      */
-    public function uniqueCode($field, $type = 'string', $length = 8)
+    public function uniqueCode($field, $type = 'string', $length = 8, $upper = false)
     {
         //根据类型生成对应编码
         switch ($type) {
@@ -1128,6 +1132,8 @@ class BaseRepository
                 $code = Str::random($length);
                 break;
         }
+        //判断是否需要大写
+        $upper && $code = strtoupper($code);
         //判断数据是否存在
         if ($this->exists([$field => $code])) {
             //重新生成
