@@ -6,7 +6,7 @@
 
 ----
 
-最后更新时间：2022年08月05日，持续更新中！！！
+最后更新时间：2022年09月13日，持续更新中！！！
 
 ---
 
@@ -267,6 +267,14 @@ composer require ext-openssl
 - 新增 ValidateLibrary 检测是否包含HTML方法
 - 新增 BaseRepository 自动生成全大写唯一编码
 - 进一步适配 abnermouke/pros 包
+
+2022.08.30 - 新增支持
+
+- 新增 ValidateLibrary 检测微信浏览器方法
+
+2022.09.13 - 新增藏库
+
+- 新增 PictureLibrary 便携处理水印（图片、文字）拼合成自定义图片
 
 ## License
 

@@ -254,7 +254,6 @@ if (!function_exists('string_to_text')){
     }
 }
 
-
 if (!function_exists('abort_error'))
 {
     /**
@@ -275,3 +274,84 @@ if (!function_exists('abort_error'))
         return response()->view('vendor.errors', compact('code', 'message', 'redirect_uri'));
     }
 }
+
+if (!function_exists('set_json_file_content')) {
+    /**
+     * 设置json文件内容
+     * @Author Abnermouke <abnermouke@outlook.com>
+     * @Originate in Abnermouke's MBP
+     * @Time 2022-07-29 16:30:36
+     * @param $json_path
+     * @param array $data
+     * @return mixed
+     */
+    function set_json_file_content($json_path, $data = [])
+    {
+        //检测文件路径
+        check_file_path($json_path);
+        //设置信息
+        file_put_contents($json_path, json_encode($data));
+        //返回文件地址
+        return $json_path;
+    }
+}
+
+if (!function_exists('get_json_file_content')) {
+    /**
+     * 获取json文件内容
+     * @Author Abnermouke <abnermouke@outlook.com>
+     * @Originate in Abnermouke's MBP
+     * @Time 2022-07-29 16:33:02
+     * @param $json_path
+     * @param array $default
+     * @return array|mixed
+     */
+    function get_json_file_content($json_path, $default = [])
+    {
+        //判断文件是否存在
+        if (\Illuminate\Support\Facades\File::exists($json_path)) {
+            //获取文件内容
+            if ($content = file_get_contents($json_path)) {
+                //返回处理文件
+                return json_decode($content, true);
+            }
+        }
+        //返回默认值
+        return $default;
+    }
+}
+
+if (!function_exists('check_file_path')) {
+    /**
+     * 检测文件路径是否有效
+     * @Author Abnermouke <abnermouke@outlook.com>
+     * @Originate in Abnermouke's MBP
+     * @Time 2022-08-05 14:10:04
+     * @param string $file_path 文件路径
+     * @param bool $auto_make_dictionary 是否自动创建文件目录
+     * @return bool
+     */
+    function check_file_path($file_path, $auto_make_dictionary = true)
+    {
+        //判断文件有效性
+        if (!$file_path) return false;
+        //判断文件是否存在
+        if (!\Illuminate\Support\Facades\File::exists($file_path)) {
+            //判断是否需要生成目录
+            if ($auto_make_dictionary) {
+                //设置信息
+                $dictionary = dirname($file_path);
+                //判断目录是否存在
+                if (!\Illuminate\Support\Facades\File::isDirectory($dictionary)) {
+                    //生成目录信息
+                    \Illuminate\Support\Facades\File::makeDirectory($dictionary, 0777, true);
+                }
+            }
+            //返回失败
+            return false;
+        }
+        //返回成功
+        return true;
+    }
+}
+

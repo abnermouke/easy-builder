@@ -38,7 +38,7 @@ class ValidateLibrary
     public static function link($link)
     {
         //验证规则
-        $regular = '/^http(s)?:\\/\\/.+/';
+        $regular = '/^((https|http|ftp|news):\/\/)?([a-z]([a-z0-9\-]*[\.。])+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel)|(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))(\/[a-z0-9_\-\.~]+)*(\/([a-z0-9_\-\.]*)(\?[a-z0-9+_\-\.%=&]*)?)?(#[a-z][a-z0-9_]*)?$/';
         //返回验证结果
         return  self::validate($regular, $link);
     }
@@ -191,6 +191,25 @@ class ValidateLibrary
     {
         //判断是否包含html
         if ($string !== strip_tags($string)) {
+            //返回验证结果
+            return true;
+        }
+        //返回验证结果
+        return false;
+    }
+
+    /**
+     * 判断是否为微信浏览器
+     * @Author Abnermouke <abnermouke@outlook.com>
+     * @Originate in Abnermouke's MBP
+     * @Time 2022-08-30 23:51:33
+     * @param $ua
+     * @return bool
+     */
+    public static function wechatBroswer($ua)
+    {
+        //判断是否为微信浏览器
+        if (strpos($ua, 'MicroMessenger') !== false) {
             //返回验证结果
             return true;
         }
