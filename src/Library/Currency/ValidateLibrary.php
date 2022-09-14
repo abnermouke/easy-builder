@@ -38,7 +38,7 @@ class ValidateLibrary
     public static function link($link)
     {
         //验证规则
-        $regular = '/^((https|http|ftp|news):\/\/)?([a-z]([a-z0-9\-]*[\.。])+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel)|(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))(\/[a-z0-9_\-\.~]+)*(\/([a-z0-9_\-\.]*)(\?[a-z0-9+_\-\.%=&]*)?)?(#[a-z][a-z0-9_]*)?$/';
+        $regular = '/[a-zA-z]+:\/\/[^\s]*/i';
         //返回验证结果
         return  self::validate($regular, $link);
     }
