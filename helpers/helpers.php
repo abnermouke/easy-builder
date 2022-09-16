@@ -187,6 +187,7 @@ if (!function_exists('random_nickname'))
     }
 }
 
+
 if (!function_exists('hidden_email_or_mobile')) {
     /**
      * 隐藏邮箱活手机号码
@@ -209,6 +210,9 @@ if (!function_exists('hidden_email_or_mobile')) {
             $number = preg_replace('/([\d\w+_-]{0,100})@/', '***@', $number, -1, $count);
             //组合信息
             $rs = $prefix . $number;
+        } else if (\Abnermouke\EasyBuilder\Library\Currency\ValidateLibrary::bankCard($number)) {
+            //直接处理
+            $rs = substr($number, 0, 4) . str_repeat('*', strlen($number)-5) . substr($number, -4);
         } else {
             //初始化电话验证规则
             $pattern = '/(1[3458]{1}[0-9])[0-9]{4}([0-9]{4})/i';
@@ -216,9 +220,12 @@ if (!function_exists('hidden_email_or_mobile')) {
             if (preg_match($pattern, $number)) {
                 //处理结果
                 $rs = preg_replace($pattern, '$1****$2', $number);
-            } else {
+            } else if (strlen($number) > 0) {
                 //直接处理
                 $rs = substr($number, 0, 3) . str_repeat('*', strlen($number)-4) . substr($number, -1);
+            } else {
+                //直接返回
+                $rs = $number;
             }
         }
         //返回匹配结果
