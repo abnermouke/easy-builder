@@ -16,6 +16,7 @@ use Abnermouke\Pros\Builders\Form\FormBuilder;
 use Abnermouke\Pros\Builders\Form\Tools\FormItemBuilder;
 use Abnermouke\Pros\Builders\Table\TableBuilder;
 use App\Services\Pros\Console\AdminLogService;
+use Illuminate\Http\Request;
 use App\Repository{__RESOURCE_DICTIONARY__}\{__LOWER_CASE_NAME__}Repository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -44,7 +45,7 @@ class {__LOWER_CASE_NAME__}InterfaceService extends BaseService
      * @return array|bool
      * @throws \Exception
      */
-    public function lists($request)
+    public function lists(Request $request)
     {
         //获取加密信息
         if (!$data = AesLibrary::decryptFormData($request->all())) {
@@ -92,7 +93,7 @@ class {__LOWER_CASE_NAME__}InterfaceService extends BaseService
      * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \Exception
      */
-    public function detail($id, $request)
+    public function detail($id, Request $request)
     {
         //渲染表单内容
         $render = FormBuilder::make()
@@ -118,7 +119,7 @@ class {__LOWER_CASE_NAME__}InterfaceService extends BaseService
      * @return array|bool
      * @throws \Exception
      */
-    public function store($id, $request)
+    public function store($id, Request $request)
     {
         //获取加密信息
         if (!$data = AesLibrary::decryptFormData($request->all())) {
@@ -168,7 +169,7 @@ class {__LOWER_CASE_NAME__}InterfaceService extends BaseService
      * @return array|bool
      * @throws \Exception
      */
-    public function delete($id, $request)
+    public function delete($id, Request $request)
     {
         //删除{__DATA_NAME__}信息
         if (!(new {__LOWER_CASE_NAME__}Repository())->delete(['id' => (int)$id])) {
@@ -191,7 +192,7 @@ class {__LOWER_CASE_NAME__}InterfaceService extends BaseService
      * @return array|bool
      * @throws \Exception
      */
-    public function enable($id, $request)
+    public function enable($id, Request $request)
     {
         //获取加密信息
         if (!$data = AesLibrary::decryptFormData($request->all())) {
