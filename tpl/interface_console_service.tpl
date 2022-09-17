@@ -16,7 +16,6 @@ use Abnermouke\Pros\Builders\Form\FormBuilder;
 use Abnermouke\Pros\Builders\Form\Tools\FormItemBuilder;
 use Abnermouke\Pros\Builders\Table\TableBuilder;
 use App\Services\Pros\Console\AdminLogService;
-use Illuminate\Http\Request;
 use App\Repository{__RESOURCE_DICTIONARY__}\{__LOWER_CASE_NAME__}Repository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
