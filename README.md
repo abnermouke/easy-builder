@@ -6,7 +6,7 @@
 
 ----
 
-最后更新时间：2022年09月17日，持续更新中！！！
+最后更新时间：2022年10月10日，持续更新中！！！
 
 ---
 
@@ -280,6 +280,11 @@ composer require ext-openssl
 
 - 新增 hidden_email_or_mobile 对银行卡号的支持
 - 优化 pros 快速生成 interface 架构服务逻辑
+
+2022.10.10 - 新增辅助函数
+
+-新增 existArr、xmlToArray、amount_to_price 辅助函数
+
 
 ## License
 

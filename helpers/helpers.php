@@ -362,3 +362,59 @@ if (!function_exists('check_file_path')) {
     }
 }
 
+if (!function_exists('amount_to_price')) {
+    /**
+     * 金额转价格（限制小数点位数）
+     * @Author Abnermouke <abnermouke@outlook.com>
+     * @Originate in Abnermouke's MBP
+     * @Time 2022-09-17 00:41:33
+     * @param $amount
+     * @param int $decimal
+     * @param int $ratio
+     * @return string
+     */
+    function amount_to_price($amount, $decimal = 2, $ratio = 100)
+    {
+        //设置金额信息
+        return sprintf('%.'.(int)$decimal.'f', ($ratio > 0 ? (int)$amount/$ratio : $amount));
+    }
+}
+
+if (!function_exists('xmlToArray')) {
+    /**
+     * XML转为数组
+     * @Author Abnermouke <abnermouke@outlook.com>
+     * @Originate in Abnermouke's MBP
+     * @Time 2022-09-30 11:35:44
+     * @param $xml
+     * @return mixed
+     */
+    function xmlToArray($xml)
+    {
+        //禁止引用外部xml实体
+        libxml_disable_entity_loader(true);
+        $xmlstring = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $val = json_decode(json_encode($xmlstring), true);
+        return $val;
+    }
+}
+
+if (!function_exists('existArr')) {
+    /**
+     * 查询是否存在与某个数组（一维数组）
+     * @Author Abnermouke <abnermouke@outlook.com>
+     * @Originate in Abnermouke's MBP
+     * @Time 2022-10-10 01:16:15
+     * @param $search
+     * @param $arr
+     * @return bool
+     */
+    function existArr($search, $arr)
+    {
+        //搜索值
+        $res = array_search($search, $arr);
+        //返回是否成立
+        return is_numeric($res) && $res >= 0;
+    }
+}
+
