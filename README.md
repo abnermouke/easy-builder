@@ -285,6 +285,10 @@ composer require ext-openssl
 
 -新增 existArr、xmlToArray、amount_to_price 辅助函数
 
+2022.10.22 - 新增藏库
+
+-- 新增 ToolLibrary 系统常用辅助方法集合（持续更新：ToolLibrary::<something> 即可快捷调用）
+
 
 ## License
 
