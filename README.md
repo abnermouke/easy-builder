@@ -6,7 +6,7 @@
 
 ----
 
-最后更新时间：2022年10月10日，持续更新中！！！
+最后更新时间：2022年11月10日，持续更新中！！！
 
 ---
 
@@ -283,11 +283,11 @@ composer require ext-openssl
 
 2022.10.10 - 新增辅助函数
 
--新增 existArr、xmlToArray、amount_to_price 辅助函数
+- 新增 existArr、xmlToArray、amount_to_price 辅助函数
 
 2022.10.22 - 新增藏库
 
--- 新增 ToolLibrary 系统常用辅助方法集合（持续更新：ToolLibrary::<something> 即可快捷调用）
+-新增 ToolLibrary 系统常用辅助方法集合（持续更新：ToolLibrary::<something> 即可快捷调用）
 
 
 ## License
