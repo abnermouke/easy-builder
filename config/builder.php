@@ -46,7 +46,7 @@ return [
 
     'author' => 'Abnermouke',
     'author_email' => 'abnermouke@outlook.com',
-    'original' => 'Yunni Technology Co Ltd.',
+    'original' => 'Chongqing Yunni Network Technology Co., Ltd',
 
 
 ];
