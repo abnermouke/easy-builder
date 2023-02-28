@@ -631,17 +631,18 @@ class BaseRepository
      * @param string $group group规则
      * @param int $page 页码
      * @param int $page_size 每页条数
+     * @param bool $selectRaw 自定义查询字段结构（涉及复杂结构时使用）
      * @return array
      * @throws \Exception
      */
-    public function lists($conditions, $fields = [], $joins = [], $orders = [], $group = '', $page = 1, $page_size = 20)
+    public function lists($conditions, $fields = [], $joins = [], $orders = [], $group = '', $page = 1, $page_size = 20, $selectRaw = false)
     {
         //查询总数量
         $total_count = $this->count();
         //查询匹配总数量
         $matched_count = $this->count($conditions, $joins, $group);
         //数据列表
-        $lists = $this->limit($conditions, $fields, $joins, $orders && !empty($orders) ? $orders : ['id' => 'desc'], $group, (int)$page, (int)$page_size);
+        $lists = $this->limit($conditions, $fields, $joins, $orders && !empty($orders) ? $orders : ['id' => 'desc'], $group, (int)$page, (int)$page_size, $selectRaw);
         //生成总页码
         $total_pages = (int)ceil($matched_count/$page_size);
         //返回数据
@@ -721,10 +722,11 @@ class BaseRepository
      * @param array $joins 表链接信息
      * @param array $orders 排序规则
      * @param string $group group规则
+     * @param bool $selectRaw 自定义查询字段结构（涉及复杂结构时使用）
      * @return mixed
      * @throws \Exception
      */
-    public function get($conditions = [], $fields = [], $joins = [], $orders = [], $group = '')
+    public function get($conditions = [], $fields = [], $joins = [], $orders = [], $group = '', $selectRaw = false)
     {
         //初始化请求
         $query = $this->setConditions($this->model(), $conditions);
@@ -734,10 +736,15 @@ class BaseRepository
         $query = $this->setOrders($query, $orders);
         //初始化group
         $query = $this->setGroup($query, $group);
+        //判断是否自定义查询字段结构
+        if ($selectRaw) {
+            //初始化请求
+            $query = $query->selectRaw($fields);
+        }
         //调试SQL
         $this->debug_sql && $query->dd();
         //获取全部信息
-        return $this->setResult($query->get($this->setFields($fields)));
+        return $this->setResult($query->get($selectRaw ? [] : $this->setFields($fields)));
     }
 
     /**
@@ -752,10 +759,11 @@ class BaseRepository
      * @param string $group group规则
      * @param int $page 页码
      * @param int $page_size 每页条数
+     * @param bool $selectRaw 自定义查询字段结构（涉及复杂结构时使用）
      * @return mixed
      * @throws \Exception
      */
-    public function limit($conditions, $fields = [], $joins = [], $orders = [], $group = '', $page = 1, $page_size = 20)
+    public function limit($conditions, $fields = [], $joins = [], $orders = [], $group = '', $page = 1, $page_size = 20, $selectRaw = false)
     {
         //初始化请求
         $query = $this->setConditions($this->model(), $conditions);
@@ -765,10 +773,15 @@ class BaseRepository
         $query = $this->setOrders($query, $orders);
         //初始化group
         $query = $this->setGroup($query, $group);
+        //判断是否自定义查询字段结构
+        if ($selectRaw) {
+            //初始化请求
+            $query = $query->selectRaw($fields);
+        }
         //调试SQL
         $this->debug_sql && $query->dd();
         //获取全部信息
-        return $this->setResult($query->offset(($page - 1) * $page_size)->limit((int)($page_size))->get($this->setFields($fields)));
+        return $this->setResult($query->offset(($page - 1) * $page_size)->limit((int)($page_size))->get($selectRaw ? [] : $this->setFields($fields)));
     }
 
     /**

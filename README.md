@@ -292,6 +292,7 @@ composer require ext-openssl
 2023.02.28 - 修复问题
 
 -新增 ToolLibrary 金额百分比计算方法amountPercentCompute
+-新增BaseRepository处理能力，新增复杂计算时可使用selectRaw查询内容
 
 ## License
 
