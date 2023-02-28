@@ -216,4 +216,19 @@ class ToolLibrary
         }
         return $rgb;
     }
+
+    /**
+     * 计算百分比金额
+     * @Author Abnermouke <abnermouke@outlook.com>
+     * @Originate in Abnermouke's MBP
+     * @Time 2023-02-28 13:28:21
+     * @param $amount int 金额（*100处理）
+     * @param $percent int 指定比例
+     * @return int
+     */
+    public static function amountPercentCompute($amount, $percent = 50)
+    {
+        //计算百分比数据
+        return (int)(floor($amount * $percent /100));
+    }
 }

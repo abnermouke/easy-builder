@@ -6,7 +6,7 @@
 
 ----
 
-最后更新时间：2022年11月10日，持续更新中！！！
+最后更新时间：2023年02月28日，持续更新中！！！
 
 ---
 
@@ -289,6 +289,9 @@ composer require ext-openssl
 
 -新增 ToolLibrary 系统常用辅助方法集合（持续更新：ToolLibrary::<something> 即可快捷调用）
 
+2023.02.28 - 修复问题
+
+-新增 ToolLibrary 金额百分比计算方法amountPercentCompute
 
 ## License
 
