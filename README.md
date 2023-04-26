@@ -297,3 +297,6 @@ composer require ext-openssl
 ## License
 
 MIT
+
+composer exec CertificateDownloader.php --  -k PZXSPMKTYFP6WNV6EU8F3ZSJO8GREELD -m  -f /Users/abnermouke/Desktop/apiclient_key.pem -s 7319C8F0F8DF56E9928FF7A373012F50F784A683 -o /Users/abnermouke/CustomDevs/惠泽家园\ -\ 广西沄鼎 生物科技有限公司/codes/www.hzjyxt.com/public/cert/wechat
+composer exec CertificateDownloader.php -- -k PZXSPMKTYFP6WNV6EU8F3ZSJO8GREELD -m 1640810701 -f /Users/abnermouke/Desktop/apiclient_key.pem -s 7319C8F0F8DF56E9928FF7A373012F50F784A683 -o /Users/abnermouke/Desktop/

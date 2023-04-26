@@ -18,7 +18,6 @@
     "require": {
         "ext-json": "*",
         "ext-openssl": "*",
-        "fukuball/jieba-php": "*",
         "lustre/php-dfa-sensitive": "*",
         "simplesoftwareio/simple-qrcode": "*",
         "qiniu/php-sdk": "*",
